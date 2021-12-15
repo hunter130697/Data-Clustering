@@ -12,7 +12,7 @@ class Point
 {
 private:
 	vector<double> values;
-	int clusterId, dimension;
+	int clusterId, dimension, partitionID;
 	double minDist;
 
 public:
@@ -22,6 +22,7 @@ public:
 		clusterId = -1;
 		minDist = DBL_MAX;
 		dimension = 0;
+		partitionID = -1;
 	}
 
 	Point(int dimensions)
@@ -30,22 +31,29 @@ public:
 		this->dimension = dimensions;
 		clusterId = -1;
 		minDist = DBL_MAX;
+		partitionID = -1;
 		for (int i = 0; i < this->dimension; i++) {
 			values.push_back(0.0);
 		}
 	}
 
 	/* Constructor when reading from file */
-	Point(string line)
+	Point(string line, int D)
 	{
 		clusterId = -1;
 		minDist = DBL_MAX;
+		partitionID = -1;
 		dimension = 0;
 		stringstream is(line);
 		double value;
 		while (is >> value) {
-			values.push_back(value);
-			dimension++;
+			if (dimension < D) {
+				values.push_back(value);
+				dimension++;
+			}
+			else {
+				partitionID = value;
+			}
 		}
 	}
 
@@ -62,6 +70,11 @@ public:
 	double getMinDist()
 	{
 		return minDist;
+	}
+
+	double getPartition()
+	{
+		return partitionID;
 	}
 
 	void setMinDist(double distance)

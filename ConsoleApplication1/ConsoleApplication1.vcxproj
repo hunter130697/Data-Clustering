@@ -142,7 +142,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="InternalValidation.h" />
+    <ClInclude Include="ExternalValidation.h" />
     <ClInclude Include="K-means.h" />
     <ClInclude Include="Point.h" />
   </ItemGroup>
